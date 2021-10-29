@@ -26,7 +26,7 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private static final Joystick joystick = new Joystick(Constants.JoystickPorts.joystick);
-  public Arm arm = new Arm(); 
+  public static Arm arm = new Arm(); 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -34,6 +34,9 @@ public class RobotContainer {
   }
   public static Joystick getJoystick() {
     return joystick;
+  }
+  public static Arm getArm() {
+    return arm;
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by

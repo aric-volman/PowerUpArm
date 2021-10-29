@@ -53,11 +53,19 @@ public class Arm extends SubsystemBase {
     armTalonPID.setTolerance(kTolerance, kDerivativeTolerance);
     armFeedForward = new ArmFeedforward(kS, kCos, kV, kA);
   }
-
+  /*
   public void setArmAngle(double angle, double velocity) {
     // PID does tuning while feedforward is a rough estimate added on to that
     armTalon.setVoltage(armFeedForward.calculate(angle, velocity) +
       armTalonPID.calculate(armTalon.getSelectedSensorPosition(0), angle));
+  }
+  */
+  public void setArmPower(double power) {
+    armTalon.set(ControlMode.PercentOutput, power);
+  }
+
+  public double getArmAngleInDegrees() {
+    return (armTalon.getSelectedSensorPosition()/4096.0)*360.0;
   }
 
   @Override
@@ -65,7 +73,7 @@ public class Arm extends SubsystemBase {
     // This method will be called once per scheduler run
     // The feedforward is returned as a voltage as alluded
     // to in the setVoltage documentation
-    setArmAngle(angleSetPoint, velocitySetPoint);
+    //setArmAngle(angleSetPoint, velocitySetPoint);
     if (RobotContainer.getJoystick().getRawButton(1)) {
       leftTalon.set(ControlMode.PercentOutput, GrabberPower);
       rightTalon.set(ControlMode.PercentOutput, GrabberPower);
